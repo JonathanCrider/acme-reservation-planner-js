@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script defer src='/dist/main.js'></script>
+  <style>
+    body {
+      font-family: helvetica;
+      padding: 1rem;
+    }
+
+    main {
+      display: flex;
+    }
+
+    main>* {
+      flex: 1;
+    }
+
+    .selected {
+      background-color: orange;
+    }
+
+    .selected a {
+      color: white;
+    }
+  </style>
+  </style>
+</head>
+<body>
+  <h1>Acme Reservation Planner</h1>
+  <main>
+    <div>
+      <h2>Users</h2>
+      <ul id='users'>
+
+      </ul>
+    </div>
+    <div>
+      <h2>Restaurants</h2>
+        <ul id='restaurants'>
+
+        </ul>
+    </div>
+    <div>
+      <h2>Reservations</h2>
+      <ul id='reservations'>
+      </ul>
+    </div>
+
+  </main>
+
+
+</body>
+</html>
