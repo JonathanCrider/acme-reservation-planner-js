@@ -10,12 +10,7 @@ let reservations;
 let userId;
 
 function resCount(resId) {
-  return reservations.reduce((acc, res) => {
-    if (res.restaurantId === resId) {
-      acc++
-    }
-    return acc;
-  },0)
+  return reservations.reduce((acc, res) => res.restaurantId === resId ? ++acc : acc, 0);
 }
 
 const renderUsers = () => {
