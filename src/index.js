@@ -7,10 +7,20 @@ const reservationsList = document.querySelector('#reservations');
 let users;
 let restaurants;
 let reservations;
+let userId;
+
+function resCount(resId) {
+  return reservations.reduce((acc, res) => {
+    if (res.restaurantId === resId) {
+      acc++
+    }
+    return acc;
+  },0)
+}
 
 const renderUsers = () => {
   const html = users.map( user => `
-    <li>
+    <li class=''>
       <a href="#${user.id}">
         ${user.name}
       </a>
@@ -22,16 +32,16 @@ const renderUsers = () => {
 const renderRestaurants = () => {
   const html = restaurants.map(restaurant => `
     <li>
-      ${restaurant.name}
+      ${restaurant.name} (${reservations ? resCount(restaurant.id) : 0})
     </li>
-  `).join('');
+      `).join('');
   restaurantList.innerHTML = html;
 }
 
 const renderReservations = () => {
   const html = reservations.map(reservation => `
     <li>
-      ${restaurants[reservation.restaurantId].name}<br>
+      ${restaurants.reduce((acc, res) => res.id === reservation.restaurantId ? acc = res.name : acc, '')}<br>
       @ ${new Date(reservation.createdAt).toLocaleTimeString()}
     </li>
   `).join('');
@@ -55,11 +65,17 @@ const init = async() => {
 }
 
 window.addEventListener('hashchange', async () =>{
-  const userId = window.location.hash.slice(1);
+  userId = window.location.hash.slice(1);
   const url = `/api/users/${userId}/reservations`;
   reservations = (await axios(url)).data;
   renderReservations();
+  renderRestaurants();
 })
 
-
+document.addEventListener('click', (e) => {
+  if (e.target.parentElement.parentElement.id === 'users') {
+    Array.from(e.target.parentElement.parentElement.children).forEach(el => el.className = '')
+    e.target.parentElement.className = 'selected'
+  }
+});
 init();
