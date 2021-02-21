@@ -10,29 +10,30 @@ let reservations;
 
 const renderUsers = () => {
   const html = users.map( user => `
-    <ul>
+    <li>
       <a href="#${user.id}">
         ${user.name}
       </a>
-    </ul>
+    </li>
   `).join('');
   userList.innerHTML = html;
 }
 
 const renderRestaurants = () => {
   const html = restaurants.map(restaurant => `
-    <ul>
+    <li>
       ${restaurant.name}
-    </ul>
+    </li>
   `).join('');
   restaurantList.innerHTML = html;
 }
 
 const renderReservations = () => {
   const html = reservations.map(reservation => `
-    <ul>
-      ${reservation.restaurantId}
-    </ul>
+    <li>
+      ${restaurants[reservation.restaurantId].name}<br>
+      @ ${new Date(reservation.createdAt).toLocaleTimeString()}
+    </li>
   `).join('');
   reservationsList.innerHTML = html;
 }
